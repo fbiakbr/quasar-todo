@@ -10,7 +10,7 @@
           <div class="col-12 q-pb-sm">
             <q-input v-model="todoTask" label="Input Task">
               <template v-slot:after>
-                <q-btn round dense flat icon="send" @click="addItem" />
+                <q-btn round dense flat icon="send" color="primary" @click="addItem" />
               </template>
             </q-input>
           </div>
@@ -22,8 +22,9 @@
           <div class="col-2 q-py-sm">{{ index + 1 }}</div>
           <div class="col-8 q-py-sm">{{ item.value }}</div>
           <div class="col-auto q-py-sm-md">
-            <q-btn round dense flat icon="done" v-if="!item.done" @click="doneTodo(index)" />
-            <q-btn round dense flat icon="delete" v-if="item.done" @click="removeItem(index)" />
+            <q-btn round dense flat icon="check" color="green" v-if="!item.done" @click="doneTodo(index)" />
+            <q-btn round dense flat icon="restore" color="primary" v-if="item.done" @click="backtodoneTodo(index)" />
+            <q-btn round dense flat icon="delete" color="red" v-if="item.done" @click="removeItem(index)" />
           </div>
         </div>
       </q-card-section>
@@ -79,14 +80,19 @@ export default defineComponent({
       if (this.todoTask.trim() !== '') {
         this.todoList.push({ value: this.todoTask, done: false });
         this.todoTask = '';
+      } else {
+        alert('Input task is empty');
       }
     },
     doneTodo(index) {
       this.todoList[index].done = true;
     },
+    backtodoneTodo(index) {
+      this.todoList[index].done = false;
+    },
     removeItem(index) {
       this.todoList.splice(index, 1);
-      
+
     }
   }
 })
