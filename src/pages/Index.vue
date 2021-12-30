@@ -20,8 +20,8 @@
       <q-card-section v-if="todoList.length > 0">
         <div class="row justify-center" v-for="(item, index) in todoList" :key="index">
           <div class="col-2 q-py-sm flex flex-center">{{ index + 1 }}</div>
-          <div class="col-8 q-py-sm">{{ item.value }}</div>
-          <div class="col-2 q-py-sm-md">
+          <div class="col-7 q-py-sm">{{ item.value }}</div>
+          <div class="col-3 q-py-sm-md flex flex-center">
             <q-btn round dense flat icon="check" color="green" v-if="!item.done" @click="doneTodo(index)" />
             <q-btn round dense flat icon="restore" color="primary" v-if="item.done" @click="backtodoneTodo(index)" />
             <q-btn round dense flat icon="delete" color="red" v-if="item.done" @click="removeItem(index)" />
