@@ -22,7 +22,8 @@
           <div class="col-2 q-py-sm">{{ index + 1 }}</div>
           <div class="col-8 q-py-sm">{{ item.value }}</div>
           <div class="col-auto q-py-sm-md">
-            <q-btn round dense flat icon="done" @click="removeItem(index)" />
+            <q-btn round dense flat icon="done" v-if="!item.done" @click="doneTodo(index)" />
+            <q-btn round dense flat icon="delete" v-if="item.done" @click="removeItem(index)" />
           </div>
         </div>
       </q-card-section>
@@ -68,16 +69,24 @@ export default defineComponent({
   data() {
     return {
       todoTask: '',
-      todoList: []
+      todoList: [
+        
+      ]
     }
   },
   methods: {
     addItem() {
-      this.todoList.push({ value: this.todoTask });
-      this.todoTask = '';
+      if (this.todoTask.trim() !== '') {
+        this.todoList.push({ value: this.todoTask, done: false });
+        this.todoTask = '';
+      }
+    },
+    doneTodo(index) {
+      this.todoList[index].done = true;
     },
     removeItem(index) {
       this.todoList.splice(index, 1);
+      
     }
   }
 })
